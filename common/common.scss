@@ -1,4 +1,4 @@
-.homepage-featured-topics {
+.homepage-categories {
   #main-outlet {
     padding-top: 1.5em;
     @media screen and (max-width: 450px) {
@@ -7,7 +7,7 @@
   }
 }
 
-.featured-topic-wrapper {
+.featured-category-wrapper {
   margin-top: 6em;
   margin-bottom: 1em;
   text-align: center;
@@ -36,14 +36,14 @@
     padding-bottom: 0.5em;
     margin-bottom: 1.5em;
   }
-  .featured-topics {
+  .featured-categories {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     @media screen and (max-width: 600px) {
       flex-wrap: wrap;
     }
-    .featured-topic {
+    .featured-category {
       flex: 1 1 30%;
       max-width: 500px;
       display: flex;
@@ -92,7 +92,7 @@
           padding: 1em 0 1em;
         }
       }
-      .featured-topic-image {
+      .featured-category-image {
         height: 200px;
         max-width: 450px;
         width: 100%;

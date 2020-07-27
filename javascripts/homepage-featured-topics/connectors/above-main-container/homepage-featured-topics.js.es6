@@ -1,8 +1,8 @@
 import { ajax } from "discourse/lib/ajax";
-import Topic from "discourse/models/topic";
+import Category from "discourse/models/category";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
-const FEATURED_CLASS = "homepage-featured-topics";
+const CLASS_NAME = "homepage-categories";
 
 export default {
   setupComponent(args, component) {
@@ -29,7 +29,7 @@ export default {
         }
 
         if (showBannerHere) {
-          document.querySelector("html").classList.add(FEATURED_CLASS);
+          document.querySelector("html").classList.add(CLASS_NAME);
 
           component.setProperties({
             displayHomepageFeatured: true,
@@ -44,26 +44,29 @@ export default {
           descriptionElement.innerHTML = settings.description_text;
           component.set("descriptionElement", descriptionElement);
 
-          ajax(`/latest.json`)
+          ajax(`/categories.json`)
             .then((result) => {
-              let customFeaturedTopics = [];
-              result.topic_list.topics
+              let customFeaturedCategories = [];
+              result.category_list.categories
+                .filter((c) => c.logo_url)
                 .slice(0, 4)
-                .forEach((topic) =>
-                  customFeaturedTopics.push(Topic.create(topic))
+                .forEach((category) =>
+                  customFeaturedCategories.push(Category.create(category))
                 );
-              component.set("customFeaturedTopics", customFeaturedTopics);
+              component.set(
+                "customFeaturedCategories",
+                customFeaturedCategories
+              );
             })
             .finally(() => component.set("loadingFeatures", false))
             .catch((e) => {
-              // the featured tag doesn't exist
               if (e.jqXHR && e.jqXHR.status === 404) {
-                document.querySelector("html").classList.remove(FEATURED_CLASS);
+                document.querySelector("html").classList.remove(CLASS_NAME);
                 component.set("displayHomepageFeatured", false);
               }
             });
         } else {
-          document.querySelector("html").classList.remove(FEATURED_CLASS);
+          document.querySelector("html").classList.remove(CLASS_NAME);
           component.set("displayHomepageFeatured", false);
         }
 
@@ -78,7 +81,7 @@ export default {
           component.set("showFor", true);
         } else {
           component.set("showFor", false);
-          document.querySelector("html").classList.remove(FEATURED_CLASS);
+          document.querySelector("html").classList.remove(CLASS_NAME);
         }
       });
     });
