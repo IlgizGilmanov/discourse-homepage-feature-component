@@ -48,11 +48,12 @@ export default {
             .then((result) => {
               let customFeaturedCategories = [];
               result.category_list.categories
-                .filter((c) => c.uploaded_logo?.url)
+                .filter((c) => c.uploaded_logo && c.uploaded_logo.url)
                 .slice(0, 4)
                 .forEach((category) =>
                   customFeaturedCategories.push(Category.create(category))
                 );
+              console.log("customFeaturedCategories", customFeaturedCategories);
               component.set(
                 "customFeaturedCategories",
                 customFeaturedCategories
