@@ -40,7 +40,7 @@ export default {
           titleElement.innerHTML = settings.title_text;
           component.set("titleElement", titleElement);
 
-          const descriptionElement = document.createElement("h2");
+          const descriptionElement = document.createElement("p");
           descriptionElement.innerHTML = settings.description_text;
           component.set("descriptionElement", descriptionElement);
 
@@ -48,7 +48,7 @@ export default {
             .then((result) => {
               let customFeaturedCategories = [];
               result.category_list.categories
-                .filter((c) => c.logo_url)
+                .filter((c) => c.uploaded_logo?.url)
                 .slice(0, 4)
                 .forEach((category) =>
                   customFeaturedCategories.push(Category.create(category))
