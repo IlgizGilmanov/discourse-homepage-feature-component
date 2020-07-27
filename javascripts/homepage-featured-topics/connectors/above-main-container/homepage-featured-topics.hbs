@@ -6,21 +6,25 @@
           {{#if (theme-setting "show_title")}}
             {{titleElement}}
           {{/if}}
+          {{#if (theme-setting "show_description")}}
+            {{descriptionElement}}
+          {{/if}}
           {{conditional-loading-spinner condition=loadingFeatures}}
           <div class="featured-topics">
             {{#each customFeaturedTopics as |t|}}
               {{#if t.image_url}}
-                <div class="featured-topic">
-                  <div
-                    class="featured-topic-image"
-                    style="background-image: url({{t.image_url}})"
-                  >
-                    <a href="/t/{{t.slug}}/{{t.id}}/{{t.last_read_post_number}}"></a>
+                <a href="/t/{{t.slug}}/{{t.id}}/{{t.last_read_post_number}}"
+                   class="featured-topic">
+                  <div class="featured-topic-image"
+                       style="background-image: url({{t.image_url}})">
                   </div>
-                  <h3>
-                    {{topic-link t}}
-                  </h3>
-                </div>
+                  <div class="featured-topic-content">
+                    <h3 class="featured-topic-title">
+                      {{t.title}}
+                    </h3>
+                    <p class="featured-topic-subtitle">{{t.excerpt}}</p>
+                  </div>
+                </a>
               {{/if}}
             {{/each}}
           </div>

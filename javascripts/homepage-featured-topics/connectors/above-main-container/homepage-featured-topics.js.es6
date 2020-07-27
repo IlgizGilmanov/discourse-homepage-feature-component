@@ -9,23 +9,20 @@ export default {
     const topMenuRoutes = Discourse.SiteSettings.top_menu
       .split("|")
       .filter(Boolean)
-      .map(route => `/${route}`);
+      .map((route) => `/${route}`);
 
     const homeRoute = topMenuRoutes[0];
 
-    withPluginApi("0.1", api => {
-      api.onPageChange(url => {
-        if (!settings.featured_tag) {
-          return;
-        }
-
-        const home = url === "/" || url.match(/^\/\?/) || url === homeRoute;
+    withPluginApi("0.1", (api) => {
+      api.onPageChange((url) => {
+        const isHomePage =
+          url === "/" || url.match(/^\/\?/) || url === homeRoute;
 
         let showBannerHere;
         if (settings.show_on === "homepage") {
-          showBannerHere = home;
+          showBannerHere = isHomePage;
         } else if (settings.show_on === "top_menu") {
-          showBannerHere = topMenuRoutes.indexOf(url) > -1 || home;
+          showBannerHere = topMenuRoutes.indexOf(url) > -1 || isHomePage;
         } else {
           showBannerHere =
             url.match(/.*/) && !url.match(/search.*/) && !url.match(/admin.*/);
@@ -36,26 +33,29 @@ export default {
 
           component.setProperties({
             displayHomepageFeatured: true,
-            loadingFeatures: true
+            loadingFeatures: true,
           });
 
           const titleElement = document.createElement("h2");
           titleElement.innerHTML = settings.title_text;
           component.set("titleElement", titleElement);
 
-          ajax(`/tags/${settings.featured_tag}.json`)
-            .then(result => {
-              // Get posts from tag
+          const descriptionElement = document.createElement("h2");
+          descriptionElement.innerHTML = settings.description_text;
+          component.set("descriptionElement", descriptionElement);
+
+          ajax(`/latest.json`)
+            .then((result) => {
               let customFeaturedTopics = [];
               result.topic_list.topics
-                .slice(0, 3)
-                .forEach(topic =>
+                .slice(0, 4)
+                .forEach((topic) =>
                   customFeaturedTopics.push(Topic.create(topic))
                 );
               component.set("customFeaturedTopics", customFeaturedTopics);
             })
             .finally(() => component.set("loadingFeatures", false))
-            .catch(e => {
+            .catch((e) => {
               // the featured tag doesn't exist
               if (e.jqXHR && e.jqXHR.status === 404) {
                 document.querySelector("html").classList.remove(FEATURED_CLASS);
@@ -82,5 +82,5 @@ export default {
         }
       });
     });
-  }
+  },
 };
