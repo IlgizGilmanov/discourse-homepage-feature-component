@@ -59,7 +59,9 @@ export default {
                 .map((c) =>
                   c.uploaded_logo && c.uploaded_logo.url
                     ? c
-                    : { ...c, uploaded_logo: { url: defaultIconUrl } }
+                    : Object.assign({}, c, {
+                        uploaded_logo: { url: defaultIconUrl },
+                      })
                 )
                 .forEach((category) =>
                   customFeaturedCategories.push(Category.create(category))
