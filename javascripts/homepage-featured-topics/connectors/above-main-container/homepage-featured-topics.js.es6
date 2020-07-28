@@ -6,6 +6,7 @@ const CLASS_NAME = "homepage-categories";
 
 export default {
   setupComponent(args, component) {
+    const defaultIconUrl = Discourse.SiteSettings.site_favicon_url;
     const topMenuRoutes = Discourse.SiteSettings.top_menu
       .split("|")
       .filter(Boolean)
@@ -50,9 +51,15 @@ export default {
           ajax(`/categories.json`)
             .then((result) => {
               let customFeaturedCategories = [];
-              result.category_list.categories.forEach((category) =>
-                customFeaturedCategories.push(Category.create(category))
-              );
+              result.category_list.categories
+                .map((c) =>
+                  c.uploaded_logo && c.uploaded_logo.url
+                    ? c
+                    : { ...c, uploaded_logo: { url: defaultIconUrl } }
+                )
+                .forEach((category) =>
+                  customFeaturedCategories.push(Category.create(category))
+                );
               console.log("customFeaturedCategories", customFeaturedCategories);
               component.set(
                 "customFeaturedCategories",

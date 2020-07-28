@@ -1,5 +1,4 @@
 $featured-category-gap: 1em;
-$featured-category-default-icon: "";
 
 .homepage-categories {
   #main-outlet {
@@ -96,11 +95,6 @@ $featured-category-default-icon: "";
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-
-  &--default {
-    @extend .featured-category-image;
-    background-image: url($featured-category-default-icon);
-  }
 }
 
 .featured-category-content {
