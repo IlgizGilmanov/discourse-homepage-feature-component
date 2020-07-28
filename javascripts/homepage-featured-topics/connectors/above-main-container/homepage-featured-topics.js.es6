@@ -6,7 +6,6 @@ const CLASS_NAME = "homepage-categories";
 
 export default {
   setupComponent(args, component) {
-    const defaultIconUrl = Discourse.SiteSettings.site_favicon_url;
     const topMenuRoutes = Discourse.SiteSettings.top_menu
       .split("|")
       .filter(Boolean)
@@ -47,6 +46,11 @@ export default {
 
           console.log("settings", settings);
           console.log("Discourse.SiteSettings", Discourse.SiteSettings);
+          console.log(
+            "Discourse.SiteSettings.site_favicon_url",
+            Discourse.SiteSettings.site_favicon_url
+          );
+          const defaultIconUrl = Discourse.SiteSettings.site_favicon_url;
 
           ajax(`/categories.json`)
             .then((result) => {
