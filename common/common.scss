@@ -47,54 +47,70 @@ $featured-category-gap: 1em;
     font-size: 18px;
     max-width: 640px;
   }
+}
 
-  .featured-categories {
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
+.featured-categories {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
-    .featured-category {
-      flex: 1 1 100%;
-      display: flex;
-      margin-top: $featured-category-gap;
-      padding: 2.5em;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+.featured-category {
+  flex: 0 1 100%;
+  display: flex;
+  margin-top: $featured-category-gap;
+  padding: 2.5em;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  transition: all 0.2s;
 
-      @media screen and (min-width: 750px) {
-        flex-basis: calc(50% - $featured-category-gap);
-      }
+  @media screen and (min-width: 750px) {
+    flex-basis: calc(50% - #{$featured-category-gap} / 2);
+  }
 
-      &:nth-of-type(2n + 1) {
-        @media screen and (min-width: 750px) {
-          margin-right: $featured-category-gap;
-        }
-      }
+  &:hover {
+    border-color: #339af7;
+    transition: all 0.2s;
+  }
 
-      .featured-category-image {
-        flex: 0 0 90px;
-        height: 90px;
-        border-radius: 50%;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-      }
+  &:hover .featured-category-name,
+  &:hover .featured-category-description {
+    color: #339af7;
+    transition: all 0.2s;
+  }
 
-      .featured-category-content {
-        margin-left: 2.5em;
-
-        .featured-category-name {
-          margin: 0;
-          font-size: 1.7em;
-        }
-
-        .featured-category-description {
-          margin-top: 0.7em;
-          color: #555;
-        }
-      }
+  &:nth-of-type(2n + 1) {
+    @media screen and (min-width: 750px) {
+      margin-right: $featured-category-gap;
     }
   }
+}
+
+.featured-category-image {
+  flex: 0 0 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.featured-category-content {
+  margin-left: 2.5em;
+}
+
+.featured-category-name {
+  margin: 0;
+  font-size: 1.7em;
+  color: #000;
+  transition: all 0.2s;
+}
+
+.featured-category-description {
+  margin-top: 0.7em;
+  color: #555;
+  line-height: 1.7em;
+  transition: all 0.2s;
 }
