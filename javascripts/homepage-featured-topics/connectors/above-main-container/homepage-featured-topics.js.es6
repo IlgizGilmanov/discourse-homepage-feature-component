@@ -44,6 +44,8 @@ export default {
           descriptionElement.innerHTML = settings.description_text;
           component.set("descriptionElement", descriptionElement);
 
+          console.log("settings", settings);
+
           ajax(`/categories.json`)
             .then((result) => {
               let customFeaturedCategories = [];
