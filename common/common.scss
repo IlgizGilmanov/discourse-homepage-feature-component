@@ -44,6 +44,9 @@ $featured-category-gap: 1em;
 
     &:before {
       content: "";
+      position: absolute;
+      margin-top: 20px;
+      left: 0;
       width: 10px;
       height: 10px;
       background-color: $tertiary;
