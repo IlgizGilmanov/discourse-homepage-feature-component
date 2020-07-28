@@ -45,6 +45,7 @@ export default {
           component.set("descriptionElement", descriptionElement);
 
           console.log("settings", settings);
+          console.log("Discourse.SiteSettings", Discourse.SiteSettings);
 
           ajax(`/categories.json`)
             .then((result) => {
