@@ -44,6 +44,9 @@ export default {
           descriptionElement.innerHTML = settings.description_text;
           component.set("descriptionElement", descriptionElement);
 
+          console.log("settings", settings);
+          console.log("settings.mobile_logo_url", settings.mobile_logo_url);
+
           ajax(`/categories.json`)
             .then((result) => {
               let customFeaturedCategories = [];
@@ -56,7 +59,6 @@ export default {
                 .forEach((category) =>
                   customFeaturedCategories.push(Category.create(category))
                 );
-              console.log("settings.mobile_logo_url", settings.mobile_logo_url);
               console.log("customFeaturedCategories", customFeaturedCategories);
               component.set(
                 "customFeaturedCategories",
