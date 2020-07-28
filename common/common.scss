@@ -41,6 +41,14 @@ $featured-category-gap: 1em;
     font-size: 35px;
     text-transform: capitalize;
     font-weight: 600;
+
+    &:before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background-color: $tertiary;
+      border-radius: 50%;
+    }
   }
 
   & > p {
@@ -71,13 +79,13 @@ $featured-category-gap: 1em;
   }
 
   &:hover {
-    border-color: #339af7;
+    border-color: $tertiary;
     transition: all 0.2s;
   }
 
   &:hover .featured-category-name,
   &:hover .featured-category-description {
-    color: #339af7;
+    color: $tertiary;
     transition: all 0.2s;
   }
 
