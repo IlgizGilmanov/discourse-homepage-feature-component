@@ -13,9 +13,13 @@
           <div class="featured-categories">
             {{#each customFeaturedCategories as |c|}}
               <a href="/c/{{c.slug}}/{{c.id}}" class="featured-category">
-                <div class="featured-category-image"
-                     style="background-image: url({{c.uploaded_logo.url}})">
-                </div>
+                {{#if c.uploaded_logo.url}}
+                  <div class="featured-category-image"
+                      style="background-image: url({{c.uploaded_logo.url}})">
+                  </div>
+                {{else}}
+                  <div class="featured-category-image--default"></div>
+                {{/if}}
                 <div class="featured-category-content">
                   <h3 class="featured-category-name">
                     {{c.name}}

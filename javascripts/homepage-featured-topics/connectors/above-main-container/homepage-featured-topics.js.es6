@@ -44,21 +44,12 @@ export default {
           descriptionElement.innerHTML = settings.description_text;
           component.set("descriptionElement", descriptionElement);
 
-          console.log("settings", settings);
-          console.log("settings.mobile_logo_url", settings.mobile_logo_url);
-
           ajax(`/categories.json`)
             .then((result) => {
               let customFeaturedCategories = [];
-              result.category_list.categories
-                .map((c) =>
-                  c.uploaded_logo && c.uploaded_logo.url
-                    ? c
-                    : { ...c, uploaded_logo: { url: settings.mobile_logo_url } }
-                )
-                .forEach((category) =>
-                  customFeaturedCategories.push(Category.create(category))
-                );
+              result.category_list.categories.forEach((category) =>
+                customFeaturedCategories.push(Category.create(category))
+              );
               console.log("customFeaturedCategories", customFeaturedCategories);
               component.set(
                 "customFeaturedCategories",
